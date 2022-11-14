@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/backGround"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".MainRegister">
+
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="319dp"
+        android:layout_height="478dp"
+        android:background="@drawable/logoapp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:circularflow_radiusInDP="0,6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.671">
+
+        <TextView
+            android:id="@+id/textViewLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="11dp"
+            android:fontFamily="sans-serif-black"
+            android:text="Welcome to Cuckoo Kitchen !"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textColor="#2FF403"
+            android:textSize="20sp"
+            android:textStyle="bold|italic"
+            android:typeface="sans" />
+
+        <ScrollView
+            android:layout_width="302dp"
+            android:layout_height="302dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/background_shape"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_baseline_person_24" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="268dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/background_shape"
+                            android:drawablePadding="5dp"
+                            android:hint="User name"
+                            android:paddingStart="16dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/background_shape"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_shape"
+                        app:srcCompat="@drawable/ic_baseline_email_24" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="268dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/background_shape"
+                            android:drawablePadding="5dp"
+                            android:hint=" Email address"
+                            android:paddingStart="16dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/background_shape"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView10"
+                        android:layout_width="36dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_baseline_local_phone_24" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="268dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/background_shape"
+                            android:drawablePadding="5dp"
+                            android:drawableTintMode="add"
+                            android:hint="Phone number"
+                            android:inputType="number|phone"
+                            android:paddingStart="16dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/background_shape"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="34dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_baseline_lock_24" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:passwordToggleEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="268dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/background_shape"
+                            android:drawablePadding="5dp"
+                            android:hint="Password"
+                            android:inputType="text|textPassword"
+                            android:paddingStart="16dp"
+                            android:password="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/background_shape"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="36dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_baseline_lock_person_24" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:passwordToggleEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="268dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/background_shape"
+                            android:drawablePadding="5dp"
+                            android:drawableTintMode="add"
+                            android:hint="Confirm password"
+                            android:inputType="text|textPassword"
+                            android:paddingStart="16dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/buttonSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/background_shape"
+            android:minHeight="48dp"
+            android:text="Sign up" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:paddingLeft="@dimen/cardview_default_elevation"
+                android:text="Already have an account?"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+
+            <Button
+                android:id="@+id/buttonToLoginView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/logoapp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Sign In"
+                android:textColor="#2FF403"
+                android:textSize="14sp" />
+        </TableRow>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageLogoRegister"
+        android:layout_width="310dp"
+        android:layout_height="115dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearlayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/logocuckoo_removebg_preview" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
