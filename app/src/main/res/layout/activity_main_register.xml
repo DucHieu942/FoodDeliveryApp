@@ -64,6 +64,7 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/username"
                             android:layout_width="268dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
@@ -95,6 +96,7 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/email"
                             android:layout_width="268dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
@@ -125,6 +127,7 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/phone"
                             android:layout_width="268dp"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
@@ -158,6 +161,7 @@
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/password"
                             android:layout_width="268dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
@@ -191,6 +195,7 @@
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/cfpass"
                             android:layout_width="268dp"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
@@ -252,10 +257,8 @@
         android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toTopOf="@+id/linearlayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/logocuckoo_removebg_preview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
