@@ -1,4 +1,4 @@
-package app.customerFoodPanel;
+package com.example.fooddelivery.customerFoodPanel;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
