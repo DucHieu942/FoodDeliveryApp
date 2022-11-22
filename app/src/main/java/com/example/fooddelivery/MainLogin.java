@@ -118,7 +118,7 @@ public class MainLogin extends AppCompatActivity {
                             }else{
                                 ischeckLogin = true;
                                 Toast.makeText(MainLogin.this,"Successful Login",Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(MainLogin.this,MainRegister.class));
+                                startActivity(new Intent(MainLogin.this,CustomerFoodPanel_BottomNavigation.class));
                                 finish();
                             }
                         }else{

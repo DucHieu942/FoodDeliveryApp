@@ -1,4 +1,4 @@
-package app.customerFoodPanel;
+package com.example.fooddelivery.customerFoodPanel;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.fooddelivery.R;
 
-public class CustomerCartFragment extends Fragment {
+public class CustomerProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_customer_cart, null);
-        getActivity().setTitle("Cart");
+        View v = inflater.inflate(R.layout.fragment_customer_profile, null);
+        getActivity().setTitle("Profile");
         return v;
     }
 }

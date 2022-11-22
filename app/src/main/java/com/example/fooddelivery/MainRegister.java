@@ -156,10 +156,10 @@ public class MainRegister extends AppCompatActivity {
                     for(DataSnapshot snapshot :dataSnapShot.getChildren() ){
                         //Check xem số điện thoại đã tồn tại hay chưa
                         System.out.println("Key"+snapshot.getKey());
-                        Long phone = snapshot.child("phone").getValue(Long.class);
+                        String phone = snapshot.child("phone").getValue(String.class).toString().trim();
                         String username =snapshot.getKey().toString();
 
-                        if(phone.toString().equals(phoneText)){
+                        if(phone.equals(phoneText)){
                             Toast.makeText(MainRegister.this,"Number have been used",Toast.LENGTH_SHORT).show();
                             isCheckPhone = true;
                             mDialog.cancel();

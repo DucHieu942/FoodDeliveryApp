@@ -1,5 +1,6 @@
-package app.customerFoodPanel;
+package com.example.fooddelivery;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -9,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.fooddelivery.R;
+import com.example.fooddelivery.customerFoodPanel.CustomerCartFragment;
+import com.example.fooddelivery.customerFoodPanel.CustomerHomeFragment;
+import com.example.fooddelivery.customerFoodPanel.CustomerProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class CustomerFoodPanel_BottomNavigation extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -20,6 +24,7 @@ public class CustomerFoodPanel_BottomNavigation extends AppCompatActivity implem
         navigationView.setOnNavigationItemSelectedListener(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
@@ -38,6 +43,10 @@ public class CustomerFoodPanel_BottomNavigation extends AppCompatActivity implem
     }
 
     private boolean loadcheffragment(Fragment fragment){
-
+        if(fragment != null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
+            return true;
+        }
+        return false;
     }
 }
