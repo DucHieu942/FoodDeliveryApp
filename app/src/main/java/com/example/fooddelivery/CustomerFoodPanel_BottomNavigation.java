@@ -28,15 +28,21 @@ public class CustomerFoodPanel_BottomNavigation extends AppCompatActivity implem
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
+        String userNameLogin = getIntent().getStringExtra("UserLogin");
+        Bundle bundle = new Bundle();
+        bundle.putString("UserLogin",userNameLogin);
         switch (item.getItemId()){
             case R.id.cus_Home:
                 fragment=new CustomerHomeFragment();
+                fragment.setArguments(bundle);
                 break;
             case R.id.cus_Cart:
                 fragment=new CustomerCartFragment();
+                fragment.setArguments(bundle);
                 break;
             case R.id.cus_Profile:
                 fragment=new CustomerProfileFragment();
+                fragment.setArguments(bundle);
                 break;
         }
         return loadcheffragment(fragment);

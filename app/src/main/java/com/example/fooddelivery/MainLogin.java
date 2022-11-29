@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.fooddelivery.Model.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,8 +67,6 @@ public class MainLogin extends AppCompatActivity {
                         mDialog.show();
                         //Check thông tin xem đúng không
                         isCheckLogin(mDialog);
-
-
                     }
                 }
             });
@@ -118,7 +117,10 @@ public class MainLogin extends AppCompatActivity {
                             }else{
                                 ischeckLogin = true;
                                 Toast.makeText(MainLogin.this,"Successful Login",Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(MainLogin.this,CustomerFoodPanel_BottomNavigation.class));
+                                mDialog.cancel();
+                                Intent intent = new Intent(MainLogin.this,CustomerFoodPanel_BottomNavigation.class);
+                                intent.putExtra("UserLogin", userNameText);
+                                startActivity(intent);
                                 finish();
                             }
                         }else{
