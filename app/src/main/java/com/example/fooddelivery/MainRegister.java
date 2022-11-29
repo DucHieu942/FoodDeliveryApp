@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.fooddelivery.Model.User;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,17 +20,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.SQLOutput;
-import java.util.function.Consumer;
-
 public class MainRegister extends AppCompatActivity {
-    TextInputEditText userName, passWord,email,phone,cfPass;
+    TextInputEditText userName,fullName, passWord,email,phone,cfPass;
     FirebaseAuth fAuth;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://food-delivery-21dff-default-rtdb.firebaseio.com/");
     FirebaseDatabase firebaseDatabase;
-    String userNameText , passWordText,emailText,phoneText,cfPassText;
+    String userNameText ,fullNameText, passWordText,emailText,phoneText,cfPassText;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.[a-z]";
-    Boolean isvalid=false,isvalidUserName=false,isvalidPassWord=false,ischeckLogin=false,isvalidEmail=false,isvalidPhone=false,isvalidCfPass=false;
+    String regex = "/^([^0-9]*)$/";
+    Boolean isvalid=false,isvalidUserName=false,isvalidFullName=false,isvalidPassWord=false,ischeckLogin=false,isvalidEmail=false,isvalidPhone=false,isvalidCfPass=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +37,11 @@ public class MainRegister extends AppCompatActivity {
         try{
 
             userName = (TextInputEditText) findViewById(R.id.username);
+            fullName = (TextInputEditText) findViewById(R.id.fullName);
             passWord = (TextInputEditText) findViewById(R.id.password);
             email = (TextInputEditText) findViewById(R.id.email);
             phone = (TextInputEditText) findViewById(R.id.phone);
-            cfPass = (TextInputEditText) findViewById(R.id.cfpass);
+            cfPass = (TextInputEditText) findViewById(R.id.fullName);
             Button buttonSignIn = (Button) findViewById(R.id.buttonToLoginView);
             Button buttonSignUp =  (Button) findViewById(R.id.buttonSignUp);
 
@@ -59,11 +58,12 @@ public class MainRegister extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     userNameText = userName.getText().toString().trim();
+                    fullNameText = fullName.getText().toString().trim();
                     passWordText = passWord.getText().toString().trim();
                     emailText = email.getText().toString().trim();
                     phoneText = phone.getText().toString().trim();
                     cfPassText = cfPass.getText().toString().trim();
-                    Toast.makeText(MainRegister.this,"Email:"+emailText,Toast.LENGTH_LONG).show();
+//                    Toast.makeText(MainRegister.this,"Email:"+emailText,Toast.LENGTH_LONG).show();
 
                     if(isvalid()){
                         final ProgressDialog mDialog = new ProgressDialog(MainRegister.this);
@@ -92,7 +92,9 @@ public class MainRegister extends AppCompatActivity {
 
     public  boolean isvalid(){
 
-        if(TextUtils.isEmpty(userNameText) && TextUtils.isEmpty(passWordText) && TextUtils.isEmpty(phoneText)  && TextUtils.isEmpty(emailText) && TextUtils.isEmpty(cfPassText)){
+        if(TextUtils.isEmpty(userNameText) && TextUtils.isEmpty(passWordText) && TextUtils.isEmpty(fullNameText)
+                && TextUtils.isEmpty(phoneText)  && TextUtils.isEmpty(emailText)
+                && TextUtils.isEmpty(cfPassText)){
             Toast.makeText(MainRegister.this,"Please enter infor",Toast.LENGTH_SHORT).show();
             return isvalid;
         }
@@ -102,6 +104,18 @@ public class MainRegister extends AppCompatActivity {
 
         }else{
             isvalidUserName = true;
+        }
+        //Check valid fullName
+        if(TextUtils.isEmpty(fullNameText)){
+            Toast.makeText(MainRegister.this,"Please enter fullname",Toast.LENGTH_SHORT).show();
+
+        }else{
+            if(!fullNameText.matches(regex)){
+                isvalidFullName = true;
+            }
+            else {
+                Toast.makeText(MainRegister.this,"Invalid fullname",Toast.LENGTH_SHORT).show();
+            }
         }
         // Check valid password
         if(TextUtils.isEmpty(passWordText)){
@@ -139,7 +153,7 @@ public class MainRegister extends AppCompatActivity {
             }
         }
 
-        isvalid = (isvalidUserName && isvalidPassWord &&isvalidEmail &&isvalidCfPass &&isvalidPhone)?true:false;
+        isvalid = (isvalidUserName && isvalidPassWord &&isvalidEmail &&isvalidCfPass &&isvalidPhone &&isvalidFullName)?true:false;
         return isvalid;
     }
 
@@ -151,11 +165,10 @@ public class MainRegister extends AppCompatActivity {
                     Boolean isCheckPhone = false;
                     Boolean isCheckUserName = false;
                     mDialog.cancel();
-                    Toast.makeText(MainRegister.this,"Vào rồi này",Toast.LENGTH_SHORT).show();
 
                     for(DataSnapshot snapshot :dataSnapShot.getChildren() ){
                         //Check xem số điện thoại đã tồn tại hay chưa
-                        System.out.println("Key"+snapshot.getKey());
+//                        System.out.println("Key"+snapshot.getKey());
                         String phone = snapshot.child("phone").getValue(String.class).toString().trim();
                         String username =snapshot.getKey().toString();
 
@@ -175,9 +188,12 @@ public class MainRegister extends AppCompatActivity {
                     }
                     // Nếu chưa tồn tại số điện thoại thì cho phép đăng ký
                     if(!isCheckUserName && !isCheckPhone){
-                        databaseReference.child("Users").child(userNameText).child("phone").setValue(phoneText);
-                        databaseReference.child("Users").child(userNameText).child("email").setValue(emailText);
-                        databaseReference.child("Users").child(userNameText).child("password").setValue(passWordText);
+                        User user = new User(userNameText,phoneText,emailText,fullNameText,passWordText,null);
+                        databaseReference.child("Users").child(userNameText).setValue(user);
+//                        databaseReference.child("Users").child(userNameText).child("phone").setValue(phoneText);
+//                        databaseReference.child("Users").child(userNameText).child("email").setValue(emailText);
+//                        databaseReference.child("Users").child(userNameText).child("fullname").setValue(fullNameText);
+//                        databaseReference.child("Users").child(userNameText).child("password").setValue(passWordText);
                         Toast.makeText(MainRegister.this,"Successful Register",Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(MainRegister.this,MainLogin.class));
                         finish();
