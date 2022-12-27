@@ -5,26 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fooddelivery.MainRegister;
-import com.example.fooddelivery.Model.User;
+import com.example.fooddelivery.Model.Customer;
 import com.example.fooddelivery.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.squareup.picasso.Picasso;
 
 public class EditProfile extends AppCompatActivity {
 
@@ -33,10 +30,11 @@ public class EditProfile extends AppCompatActivity {
     String phoneEditText,fullnameEditText,addressEditText,userNameChange;
     String currentPhone,currentFullName,currentAddress;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://food-delivery-21dff-default-rtdb.firebaseio.com/");
-    User user = new User();
+    Customer user = new Customer();
     String regex = "/^([^0-9]*)$/";
     TextView userName,email;
     Boolean isvalid = false,isvalidFullName= false,isvalidPhone=false,isvalidAddress=false;
+    ImageView avatar,changeAvatar;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -51,20 +49,22 @@ public class EditProfile extends AppCompatActivity {
         fullnameEdit =(EditText) findViewById(R.id.fullnameEdit);
         addressEdit = (EditText) findViewById(R.id.addressEdit);
         userNameChange = getIntent().getStringExtra("UserChange");
+        avatar = (ImageView) findViewById(R.id.imageAvatar) ;
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EditProfile.this, CustomerProfileFragment.class);
-                startActivity(intent);
+//                Intent intent = new Intent(EditProfile.this, CustomerProfileFragment.class);
+//                startActivity(intent);
                 finish();
             }
         });
 // set value email , user name from firebase
-        databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Customer").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                user = snapshot.child(userNameChange).getValue(User.class);
+
+                user = snapshot.child(userNameChange).getValue(Customer.class);
                 currentPhone = user.getPhonenumber();
                 currentFullName = user.getFullname();
                 currentAddress = user.getAddress();
@@ -73,6 +73,7 @@ public class EditProfile extends AppCompatActivity {
                 phoneEdit.setText(user.getPhonenumber());
                 fullnameEdit.setText(user.getFullname());
                 addressEdit.setText(user.getAddress());
+                Picasso.get().load(user.getImgUrl()).into(avatar);
             }
 
             @Override
@@ -98,7 +99,7 @@ public class EditProfile extends AppCompatActivity {
                         mDialog.show();
 
 
-                        databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                        databaseReference.child("Customer").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 //Check số điện thoại đã tồn tại chưa
@@ -120,17 +121,16 @@ public class EditProfile extends AppCompatActivity {
 
                                 }
 
-
                                 //Set value for database
                                 if(!isCheckPhone) {
-                                    user = snapshot.child(userNameChange).getValue(User.class);
-                                    databaseReference.child("Users").child(userNameChange).child("phonenumber").setValue(phoneEditText);
-                                    databaseReference.child("Users").child(userNameChange).child("fullname").setValue(fullnameEditText);
-                                    databaseReference.child("Users").child(userNameChange).child("address").setValue(addressEditText);
+                                    user = snapshot.child(userNameChange).getValue(Customer.class);
+                                    databaseReference.child("Customer").child(userNameChange).child("phonenumber").setValue(phoneEditText);
+                                    databaseReference.child("Customer").child(userNameChange).child("fullname").setValue(fullnameEditText);
+                                    databaseReference.child("Customer").child(userNameChange).child("address").setValue(addressEditText);
                                     mDialog.cancel();
                                     Toast.makeText(EditProfile.this, "Change Information Successed", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(EditProfile.this, CustomerProfileFragment.class);
-                                    startActivity(intent);
+//                                    Intent intent = new Intent(EditProfile.this, CustomerProfileFragment.class);
+//                                    startActivity(intent);
                                     finish();
                                 }
                             }

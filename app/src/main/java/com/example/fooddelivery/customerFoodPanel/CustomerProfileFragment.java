@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,19 +16,21 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.fooddelivery.MainLogin;
-import com.example.fooddelivery.Model.User;
+import com.example.fooddelivery.Model.Customer;
 import com.example.fooddelivery.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class CustomerProfileFragment extends Fragment {
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://food-delivery-21dff-default-rtdb.firebaseio.com/");
-    User user = new User();
+    Customer user = new Customer();
     TextView userName,email,passWordChange,fullName,phoneNumber,address;
     LinearLayout layoutEdit ;
+    ImageView avatar,changeAvatar;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,20 +44,23 @@ public class CustomerProfileFragment extends Fragment {
         fullName = (TextView) v.findViewById(R.id.textFullName);
         phoneNumber = (TextView) v.findViewById(R.id.textPhone);
         address = (TextView) v.findViewById(R.id.textAddress);
+        avatar = (ImageView) v.findViewById(R.id.imageAvatar) ;
+        changeAvatar =(ImageView) v.findViewById(R.id.changeAvatar);
         String userNameLogin = getArguments().getString("UserLogin");
         layoutEdit = (LinearLayout) v.findViewById(R.id.layoutEdit);
 
 
         // Set data from FireBase for Profile
-        databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Customer").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                user = snapshot.child(userNameLogin).getValue(User.class);
+                user = snapshot.child(userNameLogin).getValue(Customer.class);
                 userName.setText(user.getUsername());
                 email.setText(user.getEmail());
                 phoneNumber.setText(user.getPhonenumber());
                 fullName.setText(user.getFullname());
                 address.setText(user.getAddress());
+                Picasso.get().load(user.getImgUrl()).into(avatar);
             }
 
             @Override
@@ -87,6 +93,13 @@ public class CustomerProfileFragment extends Fragment {
                 Intent intent = new Intent(getActivity(),EditProfile.class);
                 intent.putExtra("UserChange",user.getUsername());
                 startActivity(intent);
+            }
+        });
+
+        changeAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(),"Thay đổi ảnh",Toast.LENGTH_SHORT).show();
             }
         });
 
