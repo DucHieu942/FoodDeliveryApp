@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.fooddelivery.Model.User;
+import com.example.fooddelivery.Model.Customer;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -63,7 +63,6 @@ public class MainRegister extends AppCompatActivity {
                     emailText = email.getText().toString().trim();
                     phoneText = phone.getText().toString().trim();
                     cfPassText = cfPass.getText().toString().trim();
-//                    Toast.makeText(MainRegister.this,"Email:"+emailText,Toast.LENGTH_LONG).show();
 
                     if(isvalid()){
                         final ProgressDialog mDialog = new ProgressDialog(MainRegister.this);
@@ -158,7 +157,7 @@ public class MainRegister extends AppCompatActivity {
     }
 
     public void isCheckRegister(ProgressDialog mDialog ){
-        databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Customer").addListenerForSingleValueEvent(new ValueEventListener() {
 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapShot) {
@@ -169,7 +168,7 @@ public class MainRegister extends AppCompatActivity {
                     for(DataSnapshot snapshot :dataSnapShot.getChildren() ){
                         //Check xem số điện thoại đã tồn tại hay chưa
 //                        System.out.println("Key"+snapshot.getKey());
-                        String phone = snapshot.child("phone").getValue(String.class).toString().trim();
+                        String phone = snapshot.child("phonenumber").getValue(String.class).toString().trim();
                         String username =snapshot.getKey().toString();
 
                         if(phone.equals(phoneText)){
@@ -188,12 +187,8 @@ public class MainRegister extends AppCompatActivity {
                     }
                     // Nếu chưa tồn tại số điện thoại thì cho phép đăng ký
                     if(!isCheckUserName && !isCheckPhone){
-                        User user = new User(userNameText,phoneText,emailText,fullNameText,passWordText,null);
-                        databaseReference.child("Users").child(userNameText).setValue(user);
-//                        databaseReference.child("Users").child(userNameText).child("phone").setValue(phoneText);
-//                        databaseReference.child("Users").child(userNameText).child("email").setValue(emailText);
-//                        databaseReference.child("Users").child(userNameText).child("fullname").setValue(fullNameText);
-//                        databaseReference.child("Users").child(userNameText).child("password").setValue(passWordText);
+                        Customer user = new Customer(userNameText,phoneText,emailText,fullNameText,passWordText,null);
+                        databaseReference.child("Customer").child(userNameText).setValue(user);
                         Toast.makeText(MainRegister.this,"Successful Register",Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(MainRegister.this,MainLogin.class));
                         finish();
