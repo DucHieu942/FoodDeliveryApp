@@ -68,6 +68,7 @@ public class ShoppingCart extends AppCompatActivity implements CustomerHomeFragm
 //        UUID =getIntent().getStringExtra("UUID");
 //        userName= getIntent().getStringExtra("username");
 
+
         foodRec = findViewById(R.id.listfoodincart);
         foodRec.setHasFixedSize(true);
         foodRec.setLayoutManager(new LinearLayoutManager(this));
@@ -228,9 +229,6 @@ public class ShoppingCart extends AppCompatActivity implements CustomerHomeFragm
 
             }
         });
-
-
-
 
 
 // Hàm khởi tạo các giá trị hiển thị ban đầu cho đơn

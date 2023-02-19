@@ -7,7 +7,6 @@ public class Order {
     private Float price;
     private Integer count;
 
-
     public Order() {
     }
 
@@ -57,5 +56,4 @@ public class Order {
     public void setCount(Integer count) {
         this.count = count;
     }
-
 }

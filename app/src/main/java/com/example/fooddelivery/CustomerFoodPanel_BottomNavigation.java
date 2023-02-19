@@ -98,7 +98,6 @@ public class CustomerFoodPanel_BottomNavigation extends AppCompatActivity implem
 
     }
 
-
 //    @Override
 //    public void sendData(List<Food> foodListCart) {
 //        if(foodListCart.size() !=0) {

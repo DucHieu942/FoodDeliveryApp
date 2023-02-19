@@ -8,9 +8,16 @@
         android:icon="@drawable/ic_baseline_home_24"
         />
     <item
+<<<<<<< HEAD
         android:id="@+id/cus_Order"
         android:icon="@drawable/yellow_edit"
         android:title="My Orders" />
+=======
+        android:title="Cart"
+        android:id="@+id/cus_Order"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        />
+>>>>>>> b31d429ac48ed7fddc17246cb551d1b9b57421d6
     <item
         android:title="Profile"
         android:id="@+id/cus_Profile"

@@ -36,7 +36,6 @@ public class CustomerProfileFragment extends Fragment {
     AppCompatButton btnLogout;
     private OnButtonClickListener listener;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

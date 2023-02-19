@@ -53,6 +53,7 @@ public class FoodInCartAdapter extends RecyclerView.Adapter<FoodInCartAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull FoodInCartAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
+
         Food food = listFoodCart.get(position);
         count = food.getCount();
 

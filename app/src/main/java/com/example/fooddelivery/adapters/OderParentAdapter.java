@@ -43,7 +43,9 @@ public class OderParentAdapter extends RecyclerView.Adapter<OderParentAdapter.Vi
     @NonNull
     @Override
     public OderParentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_orderparent,parent,false));
+
     }
 
     @Override
@@ -81,7 +83,6 @@ public class OderParentAdapter extends RecyclerView.Adapter<OderParentAdapter.Vi
                         iListenerClickItem.onClickItem(orderparent);
                     }
         });
-
     }
 
     @Override
