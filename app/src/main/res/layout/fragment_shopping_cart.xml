@@ -175,33 +175,7 @@
                     tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:paddingTop="15dp">
 
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/buttonCanCel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/orange_background"
-                    android:backgroundTint="@color/design_default_color_primary"
-                    android:text="Cancel"
-                    android:textColor="#FFFF" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/buttonConFirm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/orange_background"
-                    android:backgroundTint="@android:color/holo_orange_light"
-                    android:text="Confirm"
-                    android:textColor="#FFFF" />
-            </LinearLayout>
         </LinearLayout>
 
 <!--    <com.google.android.material.tabs.TabLayout-->

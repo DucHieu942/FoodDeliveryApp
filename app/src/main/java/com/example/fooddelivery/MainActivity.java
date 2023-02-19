@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements CustomerProfileFr
 
     ImageView imageView;
     TextView textView;
+    public static String imgUrlDefault = "https://firebasestorage.googleapis.com/v0/b/food-delivery-21dff.appspot.com/o/Food1.png?alt=media&token=2ed68ed6-96f1-4d94-b075-e22d4afd3192";
     public static Integer role ;
     public static String[] listRole = {"Stores","Customer","Shipper"};
 

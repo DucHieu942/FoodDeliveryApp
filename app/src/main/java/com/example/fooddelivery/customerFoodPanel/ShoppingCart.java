@@ -195,12 +195,13 @@ public class ShoppingCart extends AppCompatActivity implements CustomerHomeFragm
                    String status ="unconfirmed";
                    String address_ship = String.valueOf(editText.getText());
                    String customer_name = CustomerFoodPanel_BottomNavigation.userNameLogin;
+                   String phonenumber = CustomerFoodPanel_BottomNavigation.phoneNumber;
 
                    String id = (customer_name+"-"+order_time).replaceAll("[^a-zA-Z0-9\\s+]", "");
 
 
                    Orderparent orderparent = new Orderparent(id,customer_name,now,
-                           now_plus1h,address_ship,null,status,sum_price,amountOrder);
+                           now_plus1h,address_ship,null,status,sum_price,amountOrder,phonenumber);
                    mDialog =new ProgressDialog(ShoppingCart.this);
                    mDialog.setCanceledOnTouchOutside(false);
                    mDialog.setCancelable(false);

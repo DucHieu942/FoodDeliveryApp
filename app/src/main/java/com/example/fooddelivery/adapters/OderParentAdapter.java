@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.fooddelivery.MainLogin;
 import com.example.fooddelivery.Model.Food;
 import com.example.fooddelivery.Model.Orderparent;
 import com.example.fooddelivery.R;
@@ -63,6 +64,7 @@ public class OderParentAdapter extends RecyclerView.Adapter<OderParentAdapter.Vi
         holder.totalPrice.setText(String.valueOf(orderparent.getSum_price())+"$");
         holder.amount.setText(String.valueOf(orderparent.getAmountOrder()));
         holder.status.setText(orderparent.getStatus());
+        holder.phone.setText(String.valueOf(orderparent.getPhonenumber()));
 
         if(orderparent.getStatus().toString().equals("unconfirmed") ||orderparent.getStatus().toString().equals("complete") ){
             System.out.println("chạy vào unconfirmed");
@@ -93,7 +95,7 @@ public class OderParentAdapter extends RecyclerView.Adapter<OderParentAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView imageView;
-        TextView date,address,amount,totalPrice,foodName,status;
+        TextView date,address,amount,totalPrice,foodName,status,phone;
         LinearLayout layout;
 
 
@@ -109,6 +111,7 @@ public class OderParentAdapter extends RecyclerView.Adapter<OderParentAdapter.Vi
             amount = itemView.findViewById(R.id.amount);
             totalPrice = itemView.findViewById(R.id.price);
             status = itemView.findViewById(R.id.status);
+            phone = itemView.findViewById(R.id.phoneCus);
         }
     }
 }

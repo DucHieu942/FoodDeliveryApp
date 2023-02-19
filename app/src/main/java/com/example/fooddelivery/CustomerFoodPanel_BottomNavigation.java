@@ -19,6 +19,7 @@ public class CustomerFoodPanel_BottomNavigation extends AppCompatActivity implem
     public String tag_fragment;
     public static int itemId =R.id.cus_Home;
     public static String userNameLogin ="";
+    public static String phoneNumber ="";
     Fragment fragment = null;
     Fragment fragmentHome = new CustomerHomeFragment();
     Fragment fragmentCart = new CustomerOrderFragment();
@@ -33,6 +34,7 @@ public class CustomerFoodPanel_BottomNavigation extends AppCompatActivity implem
         BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
         navigationView.setOnNavigationItemSelectedListener(this);
         userNameLogin = getIntent().getStringExtra("UserLogin");
+        phoneNumber = getIntent().getStringExtra("PhoneNumber");
 //        Fragment fragmentHome = new CustomerHomeFragment();
 //        Bundle bundle = new Bundle();
 //        bundle.putString("UserLogin", userNameLogin);
