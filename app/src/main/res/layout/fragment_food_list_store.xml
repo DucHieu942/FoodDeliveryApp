@@ -23,7 +23,7 @@
             android:background="@drawable/background_shape">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imagelogo"
+                android:id="@+id/imagelogout"
                 android:layout_width="62dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="12dp"
@@ -32,8 +32,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/searchView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/circle"
-                app:srcCompat="@drawable/cuccu"
+                app:srcCompat="@drawable/icon_logout"
                 tools:ignore="MissingConstraints" />
 
             <androidx.appcompat.widget.SearchView
@@ -52,7 +51,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/add_food"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/imagelogo"
+                app:layout_constraintStart_toEndOf="@+id/imagelogout"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
                 app:queryHint="Search your Food!"

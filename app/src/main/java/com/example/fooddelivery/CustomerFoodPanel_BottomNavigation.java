@@ -35,6 +35,7 @@ public class CustomerFoodPanel_BottomNavigation extends AppCompatActivity implem
         navigationView.setOnNavigationItemSelectedListener(this);
         userNameLogin = getIntent().getStringExtra("UserLogin");
         phoneNumber = getIntent().getStringExtra("PhoneNumber");
+        System.out.println("phoneNumber: "+ phoneNumber);
 //        Fragment fragmentHome = new CustomerHomeFragment();
 //        Bundle bundle = new Bundle();
 //        bundle.putString("UserLogin", userNameLogin);

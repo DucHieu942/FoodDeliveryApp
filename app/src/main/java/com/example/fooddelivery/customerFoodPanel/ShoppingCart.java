@@ -59,7 +59,7 @@ public class ShoppingCart extends AppCompatActivity implements CustomerHomeFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_shopping_cart);
         btnCancel = (Button) findViewById(R.id.buttonCanCel) ;
-        btnConfirm = (Button) findViewById(R.id.buttonConFirm);
+        btnConfirm = (Button) findViewById(R.id.buttonSave);
         amountView =(TextView) findViewById(R.id.textAmountFood);
         totalView =(TextView) findViewById(R.id.textTotalPrice);
         editText = (TextView) findViewById(R.id.addressEdit);
@@ -196,6 +196,9 @@ public class ShoppingCart extends AppCompatActivity implements CustomerHomeFragm
                    String address_ship = String.valueOf(editText.getText());
                    String customer_name = CustomerFoodPanel_BottomNavigation.userNameLogin;
                    String phonenumber = CustomerFoodPanel_BottomNavigation.phoneNumber;
+
+
+                   System.out.println("Số điện thoại: "+CustomerFoodPanel_BottomNavigation.phoneNumber);
 
                    String id = (customer_name+"-"+order_time).replaceAll("[^a-zA-Z0-9\\s+]", "");
 

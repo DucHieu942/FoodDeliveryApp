@@ -62,7 +62,7 @@
             android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
             android:layout_marginBottom="10dp"
             android:background="@drawable/background_shape"
-            android:text="Strore" />
+            android:text="Store" />
 
         <Button
             android:id="@+id/btnCustomer"
@@ -72,14 +72,6 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/background_shape"
             android:text="Customer" />
-        <Button
-            android:id="@+id/btnShipper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/background_shape"
-            android:text="Shipper" />
 
         <TableRow
             android:layout_width="292dp"

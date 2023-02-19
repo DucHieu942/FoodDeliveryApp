@@ -170,6 +170,7 @@ public class MainLogin extends AppCompatActivity {
                     // Check username in firebase
                     if(snapshot.hasChild(userNameText)){
                         final String getPassWord = snapshot.child(userNameText).child("password").getValue(String.class);
+                        final String phonenumber= snapshot.child(userNameText).child("phonenumber").getValue(String.class);
                         customer = snapshot.child(userNameText).getValue(Customer.class);
                         if(!getPassWord.equals(passWordText)){
                             Toast.makeText(MainLogin.this,"Wrong Password",Toast.LENGTH_SHORT).show();
@@ -180,6 +181,7 @@ public class MainLogin extends AppCompatActivity {
                             mDialog.cancel();
                             Intent intent = new Intent(MainLogin.this,CustomerFoodPanel_BottomNavigation.class);
                             intent.putExtra("UserLogin", userNameText);
+                            intent.putExtra("PhoneNumber",phonenumber);
                             startActivity(intent);
                             finish();
                         }
@@ -204,7 +206,6 @@ public class MainLogin extends AppCompatActivity {
                     // Check username in firebase
                     if(snapshot.hasChild(userNameText)){
                         final String getPassWord = snapshot.child(userNameText).child("password").getValue(String.class);
-                        final String phonenumber= snapshot.child(userNameText).child("phonenumber").getValue(String.class);
                         if(!getPassWord.equals(passWordText)){
                             Toast.makeText(MainLogin.this,"Wrong Password",Toast.LENGTH_SHORT).show();
                             mDialog.cancel();
@@ -214,7 +215,6 @@ public class MainLogin extends AppCompatActivity {
                             mDialog.cancel();
                             Intent intent = new Intent(MainLogin.this,CustomerFoodPanel_BottomNavigation.class);
                             intent.putExtra("UserLogin", userNameText);
-                            intent.putExtra("PhoneNumber",phonenumber);
                             startActivity(intent);
                             finish();
                         }

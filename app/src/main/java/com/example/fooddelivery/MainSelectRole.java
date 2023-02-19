@@ -19,7 +19,7 @@ public class MainSelectRole extends AppCompatActivity {
 
         btnStore = (Button) findViewById(R.id.btnStore);
         btnCustomer = (Button) findViewById(R.id.btnCustomer);
-        btnShipper = (Button) findViewById(R.id.btnShipper);
+//        btnShipper = (Button) findViewById(R.id.btnShipper);
 
 
 
@@ -43,14 +43,14 @@ public class MainSelectRole extends AppCompatActivity {
             }
         });
 
-        btnShipper.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.role = 2;
-                Intent intent = new Intent(MainSelectRole.this, MainLogin.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        btnShipper.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                MainActivity.role = 2;
+//                Intent intent = new Intent(MainSelectRole.this, MainLogin.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
     }
 }

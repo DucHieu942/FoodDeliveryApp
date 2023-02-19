@@ -2,6 +2,7 @@ package com.example.fooddelivery.storeFoodPanel;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,11 +18,16 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.fooddelivery.CustomerFoodPanel_BottomNavigation;
+import com.example.fooddelivery.MainLogin;
 import com.example.fooddelivery.Model.Food;
 import com.example.fooddelivery.Model.Order;
 import com.example.fooddelivery.Model.Orderparent;
 import com.example.fooddelivery.R;
 import com.example.fooddelivery.adapters.OderParentAdapter;
+import com.example.fooddelivery.customerFoodPanel.CustomerProfileFragment;
+import com.example.fooddelivery.customerFoodPanel.ShoppingCart;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +46,7 @@ public class Order_Store_Fragment extends Fragment {
     private OderParentAdapter oderParentAdapter;
     private List<Orderparent> orderparentList =new ArrayList<>();
     private Dialog dialog;
+    ShapeableImageView logout;
 
 
 
@@ -54,23 +61,33 @@ public class Order_Store_Fragment extends Fragment {
         orderParentRec.setLayoutManager(new LinearLayoutManager(getContext()));
         orderparentList =new ArrayList<>();
 
-        OderParentAdapter.IListenerClickItem confirmOrder;
-        confirmOrder = new OderParentAdapter.IListenerClickItem() {
+        OderParentAdapter.IListenerClickItem detail;
+        detail = new OderParentAdapter.IListenerClickItem() {
             @Override
             public void onClickItem(Orderparent orderparent) {
 
-                    initDiagLogCancelOrder(orderparent);
-                    dialog.show();
+
+                Intent intent = new Intent(getActivity(), DetailOrder.class);
+                intent.putExtra("idorderparent", orderparent.getId());
+                intent.putExtra("amountorderparent", orderparent.getAmountOrder().toString());
+                intent.putExtra("priceorderparent", orderparent.getSum_price().toString());
+                intent.putExtra("address",orderparent.getAddress_ship());
+                System.out.println("1: "+orderparent.getAmountOrder());
+                System.out.println("2: "+orderparent.getSum_price());
+                startActivity(intent);
+
+//                    initDiagLogCancelOrder(orderparent);
+//                    dialog.show();
+
+
             }
         };
 
 
-        oderParentAdapter = new OderParentAdapter(getActivity(),orderparentList,confirmOrder);
+        oderParentAdapter = new OderParentAdapter(getActivity(),orderparentList,detail);
         orderParentRec.setAdapter(oderParentAdapter);
 
         getDataFromFireBase();
-
-
 
 
 
@@ -201,4 +218,6 @@ public class Order_Store_Fragment extends Fragment {
             }
         });
     }
+
+
 }
