@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#EDE1E1">
 
-    <ScrollView
+                   <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -36,17 +36,33 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
+                        <ImageView
+                            android:id="@+id/changeAvatar"
+                            android:layout_width="60dp"
+                            android:layout_height="56dp"
+                            android:layout_marginStart="230dp"
+                            android:layout_marginTop="158dp"
+                            android:layout_marginEnd="98dp"
+                            android:layout_marginBottom="146dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0"
+                            app:srcCompat="@drawable/camera" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <ImageView
+                    <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/imageAvatar"
-                        android:layout_width="210dp"
+                        android:layout_width="137dp"
                         android:layout_height="137dp"
                         android:layout_marginTop="48dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.497"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearanceOverlay="@style/circle"
                         app:srcCompat="@drawable/profile" />
 
                     <TextView
@@ -351,7 +367,7 @@
                     </LinearLayout>
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/buttonConFirm"
+                        android:id="@+id/buttonLogout"
                         android:layout_width="328dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="24dp"

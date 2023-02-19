@@ -1,17 +1,18 @@
 package com.example.fooddelivery.Model;
 
-public class User {
+public class Customer {
     private String username;
     private String phonenumber;
     private String email;
     private String fullname;
     private String password;
     private String address;
+    private String imgUrl;
 
-    public User() {
+    public Customer() {
     }
 
-    public User(String username, String phonenumber, String email, String fullname, String password, String address) {
+    public Customer(String username, String phonenumber, String email, String fullname, String password, String address) {
         this.username = username;
         this.phonenumber = phonenumber;
         this.email = email;
@@ -66,5 +67,13 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imageUrl) {
+        this.imgUrl = imageUrl;
     }
 }

@@ -1,7 +1,6 @@
 package com.example.fooddelivery;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -10,10 +9,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.fooddelivery.Model.User;
+import com.example.fooddelivery.customerFoodPanel.CustomerProfileFragment;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,19 +31,23 @@ public class MainLogin extends AppCompatActivity {
     String userNameText , passWordText;
     String userNamePattern = "[a-z]";
     Boolean isvalid=false,isvalidUserName=false,isvalidPassWord=false,ischeckLogin=false;
+    private MainLogin.OnButtonClickListener listener;
+
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_login);
 
-        try{
-            userName = (TextInputEditText) findViewById(R.id.userNameInput);
-            passWord = (TextInputEditText) findViewById(R.id.password);
+
+        if(MainActivity.role ==0){
+            setContentView(R.layout.activity_main_login_store);
+
+        }
+        else{
+            setContentView(R.layout.activity_main_login);
             Button buttonSignUp = (Button) findViewById(R.id.buttonToLoginView);
-            Button buttonLogin =  (Button) findViewById(R.id.buttonLogin);
             buttonSignUp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -54,11 +56,32 @@ public class MainLogin extends AppCompatActivity {
                     finish();
                 }
             });
+        }
+
+        try{
+            userName = (TextInputEditText) findViewById(R.id.userNameInput);
+            passWord = (TextInputEditText) findViewById(R.id.password);
+            Button buttonLogin =  (Button) findViewById(R.id.btnShipper);
+            Button buttonRole = (Button) findViewById(R.id.selectRole);
+
+
+
+            buttonRole.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainLogin.this, MainSelectRole.class);
+                    startActivity(intent);
+                }
+            });
+
+
+
             buttonLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     userNameText = userName.getText().toString().trim();
                     passWordText = passWord.getText().toString().trim();
+                    System.out.println("Role là: "+ MainActivity.role);
                     if (isValid()) {
                         final ProgressDialog mDialog = new ProgressDialog(MainLogin.this);
                         mDialog.setCanceledOnTouchOutside(false);
@@ -105,36 +128,142 @@ public class MainLogin extends AppCompatActivity {
     public void isCheckLogin(ProgressDialog mDialog ){
         //check data to firebase Realtime Database,
         //Check theo userName
-        databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        // Check username in firebase
-                        if(snapshot.hasChild(userNameText)){
-                            final String getPassWord = snapshot.child(userNameText).child("password").getValue(String.class);
-                            if(!getPassWord.equals(passWordText)){
-                                Toast.makeText(MainLogin.this,"Wrong Password",Toast.LENGTH_SHORT).show();
-                                mDialog.cancel();
-                            }else{
-                                ischeckLogin = true;
-                                Toast.makeText(MainLogin.this,"Successful Login",Toast.LENGTH_SHORT).show();
-                                mDialog.cancel();
-                                Intent intent = new Intent(MainLogin.this,CustomerFoodPanel_BottomNavigation.class);
-                                intent.putExtra("UserLogin", userNameText);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }else{
-                            Toast.makeText(MainLogin.this,"Wrong UserName",Toast.LENGTH_SHORT).show();
+        if(MainActivity.role == 0){
+            databaseReference.child("Stores").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    // Check username in firebase
+                    if(snapshot.hasChild(userNameText)){
+                        final String getPassWord = snapshot.child(userNameText).child("password").getValue(String.class);
+                        if(!getPassWord.equals(passWordText)){
+                            Toast.makeText(MainLogin.this,"Wrong Password",Toast.LENGTH_SHORT).show();
                             mDialog.cancel();
+                        }else{
+                            ischeckLogin = true;
+                            Toast.makeText(MainLogin.this,"Successful Login",Toast.LENGTH_SHORT).show();
+                            mDialog.cancel();
+                            Intent intent = new Intent(MainLogin.this,CustomerFoodPanel_BottomNavigation.class);
+                            intent.putExtra("UserLogin", userNameText);
+                            startActivity(intent);
+                            finish();
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(MainLogin.this,error.getMessage(),Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(MainLogin.this,"Wrong UserName",Toast.LENGTH_SHORT).show();
+                        mDialog.cancel();
                     }
                 }
-        );
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(MainLogin.this,error.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+            );
+        }
+
+        if(MainActivity.role == 1){
+            databaseReference.child("Customer").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    // Check username in firebase
+                    if(snapshot.hasChild(userNameText)){
+                        final String getPassWord = snapshot.child(userNameText).child("password").getValue(String.class);
+                        if(!getPassWord.equals(passWordText)){
+                            Toast.makeText(MainLogin.this,"Wrong Password",Toast.LENGTH_SHORT).show();
+                            mDialog.cancel();
+                        }else{
+                            ischeckLogin = true;
+                            Toast.makeText(MainLogin.this,"Successful Login",Toast.LENGTH_SHORT).show();
+                            mDialog.cancel();
+                            Intent intent = new Intent(MainLogin.this,CustomerFoodPanel_BottomNavigation.class);
+                            intent.putExtra("UserLogin", userNameText);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }else{
+                        Toast.makeText(MainLogin.this,"Wrong UserName",Toast.LENGTH_SHORT).show();
+                        mDialog.cancel();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(MainLogin.this,error.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+            );
+        }
+
+        if(MainActivity.role == 2){
+            databaseReference.child("Shipper").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    // Check username in firebase
+                    if(snapshot.hasChild(userNameText)){
+                        final String getPassWord = snapshot.child(userNameText).child("password").getValue(String.class);
+                        if(!getPassWord.equals(passWordText)){
+                            Toast.makeText(MainLogin.this,"Wrong Password",Toast.LENGTH_SHORT).show();
+                            mDialog.cancel();
+                        }else{
+                            ischeckLogin = true;
+                            Toast.makeText(MainLogin.this,"Successful Login",Toast.LENGTH_SHORT).show();
+                            mDialog.cancel();
+                            Intent intent = new Intent(MainLogin.this,CustomerFoodPanel_BottomNavigation.class);
+                            intent.putExtra("UserLogin", userNameText);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }else{
+                        Toast.makeText(MainLogin.this,"Wrong UserName",Toast.LENGTH_SHORT).show();
+                        mDialog.cancel();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(MainLogin.this,error.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+            );
+        }
+
+
+
+
+//        databaseReference.child("Customer").addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        // Check username in firebase
+//                        if(snapshot.hasChild(userNameText)){
+//                            final String getPassWord = snapshot.child(userNameText).child("password").getValue(String.class);
+//                            if(!getPassWord.equals(passWordText)){
+//                                Toast.makeText(MainLogin.this,"Wrong Password",Toast.LENGTH_SHORT).show();
+//                                mDialog.cancel();
+//                            }else{
+//                                ischeckLogin = true;
+//                                Toast.makeText(MainLogin.this,"Successful Login",Toast.LENGTH_SHORT).show();
+//                                mDialog.cancel();
+//                                Intent intent = new Intent(MainLogin.this,CustomerFoodPanel_BottomNavigation.class);
+//                                intent.putExtra("UserLogin", userNameText);
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//                        }else{
+//                            Toast.makeText(MainLogin.this,"Wrong UserName",Toast.LENGTH_SHORT).show();
+//                            mDialog.cancel();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//                        Toast.makeText(MainLogin.this,error.getMessage(),Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//        );
+    }
+
+    public interface OnButtonClickListener {
+        void onButtonClicked();
     }
 
 
