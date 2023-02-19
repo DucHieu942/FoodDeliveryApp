@@ -14,6 +14,7 @@ public class Orderparent {
     private String status;
     private Float sum_price;
     private Long amountOrder;
+    private String phonenumber;
 
 
     @Transient
@@ -24,7 +25,7 @@ public class Orderparent {
     public Orderparent() {
     }
 
-    public Orderparent(String id, String customer_name, Date order_time, Date require_time, String address_ship, String shipper_name, String status, Float sum_price, Long amountOrder) {
+    public Orderparent(String id, String customer_name, Date order_time, Date require_time, String address_ship, String shipper_name, String status, Float sum_price, Long amountOrder,String phonenumber) {
         this.id = id;
         this.customer_name = customer_name;
         this.order_time = order_time;
@@ -34,6 +35,7 @@ public class Orderparent {
         this.status = status;
         this.sum_price = sum_price;
         this.amountOrder = amountOrder;
+        this.phonenumber = phonenumber;
     }
 
     public Long getAmountOrder() {
@@ -122,5 +124,13 @@ public class Orderparent {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
     }
 }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.fooddelivery.MainActivity;
 import com.example.fooddelivery.Model.Food;
 import com.example.fooddelivery.R;
 
@@ -57,12 +58,18 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         holder.name.setText(food.getName());
         holder.rating.setText(String.valueOf(food.getRate()));
         holder.price.setText("Price:"+String.valueOf(food.getPrice())+"$");
-        holder.addtocart.setOnClickListener(new View.OnClickListener() {
+
+        if(MainActivity.role == 0){
+            holder.addtocart.setVisibility(View.GONE);
+        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIAddFoodListener.onAddFood(food);
             }
         });
+
 
     }
 

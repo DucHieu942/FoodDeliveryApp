@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.fooddelivery.Model.Customer;
 import com.example.fooddelivery.customerFoodPanel.CustomerProfileFragment;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -32,6 +33,7 @@ public class MainLogin extends AppCompatActivity {
     String userNamePattern = "[a-z]";
     Boolean isvalid=false,isvalidUserName=false,isvalidPassWord=false,ischeckLogin=false;
     private MainLogin.OnButtonClickListener listener;
+    public static Customer customer;
 
 
 
@@ -142,7 +144,7 @@ public class MainLogin extends AppCompatActivity {
                             ischeckLogin = true;
                             Toast.makeText(MainLogin.this,"Successful Login",Toast.LENGTH_SHORT).show();
                             mDialog.cancel();
-                            Intent intent = new Intent(MainLogin.this,CustomerFoodPanel_BottomNavigation.class);
+                            Intent intent = new Intent(MainLogin.this,StoreFoodPanel_BottomNavigation.class);
                             intent.putExtra("UserLogin", userNameText);
                             startActivity(intent);
                             finish();
@@ -168,6 +170,7 @@ public class MainLogin extends AppCompatActivity {
                     // Check username in firebase
                     if(snapshot.hasChild(userNameText)){
                         final String getPassWord = snapshot.child(userNameText).child("password").getValue(String.class);
+                        customer = snapshot.child(userNameText).getValue(Customer.class);
                         if(!getPassWord.equals(passWordText)){
                             Toast.makeText(MainLogin.this,"Wrong Password",Toast.LENGTH_SHORT).show();
                             mDialog.cancel();
@@ -201,6 +204,7 @@ public class MainLogin extends AppCompatActivity {
                     // Check username in firebase
                     if(snapshot.hasChild(userNameText)){
                         final String getPassWord = snapshot.child(userNameText).child("password").getValue(String.class);
+                        final String phonenumber= snapshot.child(userNameText).child("phonenumber").getValue(String.class);
                         if(!getPassWord.equals(passWordText)){
                             Toast.makeText(MainLogin.this,"Wrong Password",Toast.LENGTH_SHORT).show();
                             mDialog.cancel();
@@ -210,6 +214,7 @@ public class MainLogin extends AppCompatActivity {
                             mDialog.cancel();
                             Intent intent = new Intent(MainLogin.this,CustomerFoodPanel_BottomNavigation.class);
                             intent.putExtra("UserLogin", userNameText);
+                            intent.putExtra("PhoneNumber",phonenumber);
                             startActivity(intent);
                             finish();
                         }

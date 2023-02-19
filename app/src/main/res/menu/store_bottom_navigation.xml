@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/store_orders"
+        android:icon="@drawable/yellow_edit"
+        android:title="" />
+    <item
+        android:id="@+id/store_clt_orders"
+        android:icon="@drawable/ic_baseline_playlist_add_check_24"
+        android:title="" />
+    <item
+        android:id="@+id/store_food"
+        android:icon="@drawable/ic_listfood_store"
+        android:title="" />
+<!--    <item-->
+<!--        android:title=""-->
+<!--        android:id="@+id/store_info"-->
+<!--        android:icon="@drawable/ic_baseline_person_24"-->
+<!--        />-->
+
+</menu>

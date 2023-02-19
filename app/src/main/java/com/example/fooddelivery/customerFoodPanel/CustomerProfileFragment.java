@@ -116,21 +116,6 @@ public class CustomerProfileFragment extends Fragment {
         void onButtonClicked();
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnButtonClickListener) {
-//            listener = (OnButtonClickListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString() + " must implement OnButtonClickListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        listener = null;
-//    }
 
 
 
