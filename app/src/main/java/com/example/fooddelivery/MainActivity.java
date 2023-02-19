@@ -9,8 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.fooddelivery.customerFoodPanel.CustomerProfileFragment;
+import com.example.fooddelivery.storeFoodPanel.DetailOrder;
+import com.example.fooddelivery.storeFoodPanel.Food_List_Store_Fragment;
+import com.example.fooddelivery.storeFoodPanel.Order_Store_Fragment;
 
-public class MainActivity extends AppCompatActivity implements CustomerProfileFragment.OnButtonClickListener {
+public class MainActivity extends AppCompatActivity implements CustomerProfileFragment.OnButtonClickListener,
+        Food_List_Store_Fragment.OnButtonLogoutFoodListListener {
 
     ImageView imageView;
     TextView textView;
@@ -39,6 +43,13 @@ public class MainActivity extends AppCompatActivity implements CustomerProfileFr
 
     @Override
     public void onButtonClicked() {
+        Intent intent = new Intent(this, MainSelectRole.class);
+        startActivity(intent);
+    }
+
+
+    @Override
+    public void onButtonLogoutFoodListClicked() {
         Intent intent = new Intent(this, MainSelectRole.class);
         startActivity(intent);
     }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -57,6 +58,9 @@ public class OngoingFragment extends Fragment {
 
                 if (orderparent.getStatus().toString().equals("unconfirmed")) {
                     initDiagLogCancelOrder(orderparent);
+                    dialog.show();
+                }else{
+                    initDiagLogCompleteOrder(orderparent);
                     dialog.show();
                 }
             }
@@ -198,4 +202,43 @@ public class OngoingFragment extends Fragment {
         });
 
     };
+
+    private  void initDiagLogCompleteOrder(Orderparent complete) {
+        dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_complete_order);
+        Window window = dialog.getWindow();
+        window.setLayout(800, 300);
+
+    Button buttonYes = dialog.findViewById(R.id.button_yes);
+    Button buttonNo = dialog.findViewById(R.id.button_no);
+
+        buttonYes.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            databaseReference.child("OrderParent").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    databaseReference.child("OrderParent").child(complete.getId().toString()).child("status").setValue("complete");
+                    Toast.makeText(getActivity(),"Complete Order",Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+
+    });
+
+        buttonNo.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            dialog.dismiss();
+        }
+    });
+
+};
 }

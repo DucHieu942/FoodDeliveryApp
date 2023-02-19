@@ -20,6 +20,7 @@ import com.example.fooddelivery.R;
 import com.example.fooddelivery.adapters.FoodAdapter;
 import com.example.fooddelivery.customerFoodPanel.CustomerHomeFragment;
 import com.example.fooddelivery.customerFoodPanel.ShoppingCart;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,8 +43,10 @@ public class Food_List_Store_Fragment extends Fragment {
     private SearchView searchView;
     private ImageView addFoodMenu;
     private CustomerHomeFragment.OnBackPressedListener onBackPressedListener;
+    ShapeableImageView logout;
 
     public static Food foodEdit = new Food();
+    private OnButtonLogoutFoodListListener listener;
 
 
 
@@ -55,6 +58,7 @@ public class Food_List_Store_Fragment extends Fragment {
 
 
         addFoodMenu = v.findViewById(R.id.add_food);
+        logout = v.findViewById(R.id.imagelogout);
         String userNameLogin = getArguments().getString("UserLogin");
         searchView = v.findViewById(R.id.searchView);
         searchView.clearFocus();
@@ -62,8 +66,18 @@ public class Food_List_Store_Fragment extends Fragment {
         foodRec.setHasFixedSize(true);
         foodRec.setLayoutManager(new LinearLayoutManager(getContext()));
 
+
         foodList = new ArrayList<>();
         FoodAdapter.IAddFoodListener editFood;
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("Có vào hàm này đấyyyyyy");
+                listener.onButtonLogoutFoodListClicked();
+            }
+        });
+
 
 
 
@@ -170,6 +184,8 @@ public class Food_List_Store_Fragment extends Fragment {
         }
     }
 
-
+    public interface OnButtonLogoutFoodListListener {
+        void onButtonLogoutFoodListClicked();
+    }
 
 }
