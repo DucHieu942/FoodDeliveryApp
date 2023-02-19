@@ -94,7 +94,7 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/fullname"
+                            android:id="@+id/address"
                             android:layout_width="268dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/cardview_compat_inset_shadow"

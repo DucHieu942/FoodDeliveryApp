@@ -14,16 +14,25 @@ import com.example.fooddelivery.customerFoodPanel.CustomerHomeFragment;
 import com.example.fooddelivery.customerFoodPanel.CustomerProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class CustomerFoodPanel_BottomNavigation extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class CustomerFoodPanel_BottomNavigation extends AppCompatActivity implements CustomerProfileFragment.OnButtonClickListener, CustomerHomeFragment.OnBackPressedListener,BottomNavigationView.OnNavigationItemSelectedListener {
     public int id_fragment  ;
     public String tag_fragment;
+    public static int itemId =R.id.cus_Home;
+    public static String userNameLogin ="";
+    Fragment fragment = null;
+    Fragment fragmentHome = new CustomerHomeFragment();
+    Fragment fragmentCart = new CustomerOrderFragment();
+    Fragment fragmentProfile = new CustomerProfileFragment();
+    Bundle bundle = new Bundle();
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_food_panel_bottom_navigation);
         BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
         navigationView.setOnNavigationItemSelectedListener(this);
-        String userNameLogin = getIntent().getStringExtra("UserLogin");
+        userNameLogin = getIntent().getStringExtra("UserLogin");
 //        Fragment fragmentHome = new CustomerHomeFragment();
 //        Bundle bundle = new Bundle();
 //        bundle.putString("UserLogin", userNameLogin);
@@ -35,13 +44,10 @@ public class CustomerFoodPanel_BottomNavigation extends AppCompatActivity implem
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment fragment = null;
         Bundle bundle = new Bundle();
-        String userNameLogin = getIntent().getStringExtra("UserLogin");
+        userNameLogin = getIntent().getStringExtra("UserLogin");
         bundle.putString("UserLogin", userNameLogin);
-        Fragment fragmentHome = new CustomerHomeFragment();
-        Fragment fragmentCart = new CustomerOrderFragment();
-        Fragment fragmentProfile = new CustomerProfileFragment();
+        itemId = item.getItemId();
 
         switch (item.getItemId()) {
             case R.id.cus_Home:
@@ -64,10 +70,32 @@ public class CustomerFoodPanel_BottomNavigation extends AppCompatActivity implem
 
     private boolean loadcheffragment(Fragment fragment){
         if(fragment != null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_customer,fragment).commit();
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        fragment = fragmentHome;
+        fragment.setArguments(bundle);
+        userNameLogin = getIntent().getStringExtra("UserLogin");
+        bundle.putString("UserLogin", userNameLogin);
+        // Load fragment đầu tiên khi mới đăng nhập vào (Fragment1)
+        loadcheffragment(fragment);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        // xử lý sự kiện nút Back ở đây
+    }
+
+    @Override
+    public void onButtonClicked() {
+
     }
 
 //    @Override

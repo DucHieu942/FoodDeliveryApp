@@ -2,8 +2,10 @@ package com.example.fooddelivery.Model;
 
 import java.util.Date;
 
+import kotlin.jvm.Transient;
+
 public class Orderparent {
-    private String id;;
+    private String id;
     private String customer_name;
     private Date order_time;
     private Date require_time;
@@ -12,6 +14,12 @@ public class Orderparent {
     private String status;
     private Float sum_price;
     private Long amountOrder;
+
+
+    @Transient
+    private  String foodName;
+    @Transient
+    private String imgUrl;
 
     public Orderparent() {
     }
@@ -98,5 +106,21 @@ public class Orderparent {
 
     public void setSum_price(Float sum_price) {
         this.sum_price = sum_price;
+    }
+
+    public String getFoodName() {
+        return foodName;
+    }
+
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }

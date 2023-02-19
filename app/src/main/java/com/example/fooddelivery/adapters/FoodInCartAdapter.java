@@ -1,5 +1,6 @@
 package com.example.fooddelivery.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,16 +20,28 @@ import java.util.List;
 public class FoodInCartAdapter extends RecyclerView.Adapter<FoodInCartAdapter.ViewHolder>{
 
     private android.content.Context context;
-    private List<Food> listFoodCart;
+    public static List<Food> listFoodCart;
+    private IListenerIncrease iListenerIncrease;
+    private IListenerDecrease iListenerDecrease;
     Integer count;
 
 
-    public FoodInCartAdapter(android.content.Context context, List<Food> list){
+    public FoodInCartAdapter(android.content.Context context, List<Food> list,IListenerIncrease iListenerIncrease,IListenerDecrease iListenerDecrease){
         this.context = context;
         this.listFoodCart = list;
+        this.iListenerIncrease = iListenerIncrease;
+        this.iListenerDecrease = iListenerDecrease;
     }
     public List<Food> getListFood(){
         return this.listFoodCart;
+    }
+
+    public interface IListenerIncrease {
+        void onClickIncrease(Food food,int position);
+    }
+
+    public interface IListenerDecrease {
+        void onClickDecrease (Food food,int position);
     }
 
     @NonNull
@@ -38,7 +51,8 @@ public class FoodInCartAdapter extends RecyclerView.Adapter<FoodInCartAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FoodInCartAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FoodInCartAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+
 
         Food food = listFoodCart.get(position);
         count = food.getCount();
@@ -52,21 +66,14 @@ public class FoodInCartAdapter extends RecyclerView.Adapter<FoodInCartAdapter.Vi
         holder.btnDecrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(count < 0){
-                    count = 0;
-                    food.setCount(count);
-                }else {
-                    count = count -1;
-                    food.setCount(count);
-                }
+                iListenerDecrease.onClickDecrease(food,position);
             }
         });
         // Nút tăng số lượng
         holder.btnIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count = count + 1;
-                food.setCount(count);
+                iListenerIncrease.onClickIncrease(food,position);
             }
         });
     }

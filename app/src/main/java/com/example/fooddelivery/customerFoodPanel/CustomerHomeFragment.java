@@ -1,5 +1,6 @@
 package com.example.fooddelivery.customerFoodPanel;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,27 +38,13 @@ public class CustomerHomeFragment extends Fragment  {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://food-delivery-21dff-default-rtdb.firebaseio.com/");
     private List<Food> foodList;
     private List<Integer> foodListCartId = new ArrayList<>();
-    private List<Food> foodListCart = new ArrayList<>();
+    public static List<Food> foodListCart = new ArrayList<>();
     private FoodAdapter foodAdapter;
     private SearchView searchView;
     private ImageView shoppingCart;
+    private OnBackPressedListener onBackPressedListener;
     String uuidOrder = "None";
     Long idOrder = 0L;
-//    private  ISendDataListener mISendDataListener;
-//
-//    public interface ISendDataListener {
-//        void sendData(List<Food> foodListCart);
-//    }
-
-    public  CustomerHomeFragment(){
-
-    }
-
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        super.onAttach(context);
-//        mISendDataListener = (ISendDataListener) getActivity();
-//    }
 
     @Nullable
     @Override
@@ -66,16 +53,17 @@ public class CustomerHomeFragment extends Fragment  {
         getActivity().setTitle("Home");
 
         shoppingCart = v.findViewById(R.id.Cart);
-        if(savedInstanceState != null){
-            foodListCartId = savedInstanceState.getIntegerArrayList("foodListCartId");
-            uuidOrder = savedInstanceState.getString("UUID");
-        }
+//        if(savedInstanceState != null){
+//            foodListCartId = savedInstanceState.getIntegerArrayList("foodListCartId");
+//            uuidOrder = savedInstanceState.getString("UUID");
+//        }
         String userNameLogin = getArguments().getString("UserLogin");
         searchView = v.findViewById(R.id.searchView);
         searchView.clearFocus();
         foodRec = v.findViewById(R.id.home_foodlist);
         foodRec.setHasFixedSize(true);
         foodRec.setLayoutManager(new LinearLayoutManager(getContext()));
+
         foodList = new ArrayList<>();
         FoodAdapter.IAddFoodListener addToCart;
 
@@ -90,7 +78,7 @@ public class CustomerHomeFragment extends Fragment  {
                     foodListCartId.add(food.getId().intValue());
                     idOrder = idOrder +1L;
                     Toast.makeText(getActivity(), "Size: " + foodListCart.size(), Toast.LENGTH_SHORT).show();
-                    sendDataToFireBase(food,userNameLogin);
+//                    sendDataToFireBase(food,userNameLogin);
                 }
             }
         };
@@ -152,33 +140,33 @@ public class CustomerHomeFragment extends Fragment  {
         return v;
     }
 // send Data To Firebase
-    private void sendDataToFireBase(Food food,String userNameLogin ) {
-         Long idFood = food.getId();
-         Float priceFood = food.getPrice();
-        databaseReference.child("OrderParent").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(uuidOrder.equals("None")) {
-                    String status = snapshot.child(uuidOrder).child("status").getValue(String.class) ==null?"None"
-                            :snapshot.child(uuidOrder).child("status").getValue(String.class);
-                    if(!status.equals("In cart"))
-                        uuidOrder = UUID.randomUUID().toString();
-                }
-                Orderparent orderparent = new Orderparent(uuidOrder,null,null,null,null,null,"In cart",null,null);
-                databaseReference.child("OrderParent").child(uuidOrder).setValue(orderparent);
-                Order order = new Order(idOrder,uuidOrder,idFood,null);
-                databaseReference.child("Order").child(idOrder.toString()).setValue(order);
-                databaseReference.child("Order").child(idOrder.toString()).child("price").setValue(priceFood.intValue());
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
+//    private void sendDataToFireBase(Food food,String userNameLogin ) {
+//         Long idFood = food.getId();
+//         Float priceFood = food.getPrice();
+//        databaseReference.child("OrderParent").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if(uuidOrder.equals("None")) {
+//                    String status = snapshot.child(uuidOrder).child("status").getValue(String.class) ==null?"None"
+//                            :snapshot.child(uuidOrder).child("status").getValue(String.class);
+//                    if(!status.equals("In cart"))
+//                        uuidOrder = UUID.randomUUID().toString();
+//                }
+//                Orderparent orderparent = new Orderparent(uuidOrder,null,null,null,null,null,"In cart",null,null);
+//                databaseReference.child("OrderParent").child(uuidOrder).setValue(orderparent);
+//                Order order = new Order(idOrder,uuidOrder,idFood,null);
+//                databaseReference.child("Order").child(idOrder.toString()).setValue(order);
+//                databaseReference.child("Order").child(idOrder.toString()).child("price").setValue(priceFood.intValue());
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//    }
 
     private void filterList(String newText) {
         List<Food> filteredList = new ArrayList<>();
@@ -209,6 +197,34 @@ public class CustomerHomeFragment extends Fragment  {
         outState.putIntegerArrayList("foodListCartId",(ArrayList<Integer>) foodListCartId);
         outState.putString("UUID", uuidOrder);
     }
+
+
+    public interface OnBackPressedListener {
+        void onBackPressed();
+    }
+
+
+//    @Override
+//    public void onAttach(@NonNull Context context) {
+//        super.onAttach(context);
+//        try {
+//            onBackPressedListener = (OnBackPressedListener) getActivity();
+//        } catch (ClassCastException e) {
+//            throw new ClassCastException(getActivity().toString() + " must implement OnBackPressedListener");
+//        }
+//    }
+//
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        onBackPressedListener = null;
+//    }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        onBackPressedListener = (OnBackPressedListener) getActivity();
+//    }
 
 
 }

@@ -1,26 +1,28 @@
 package com.example.fooddelivery.Model;
 
 public class Order {
-    private Long id;
+    private String id;
     private String orderparent_id;
     private Long food_id;
     private Float price;
+    private Integer count;
 
     public Order() {
     }
 
-    public Order(Long id, String orderparent_id, Long food_id, Float price) {
+    public Order(String id, String orderparent_id, Long food_id, Float price,Integer count) {
         this.id = id;
         this.orderparent_id = orderparent_id;
         this.food_id = food_id;
         this.price = price;
+        this.count = count;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -46,5 +48,12 @@ public class Order {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }
