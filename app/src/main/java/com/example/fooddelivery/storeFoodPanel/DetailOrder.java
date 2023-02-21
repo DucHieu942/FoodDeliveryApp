@@ -66,12 +66,6 @@ public class DetailOrder extends AppCompatActivity {
         foodRec.setLayoutManager(new LinearLayoutManager(this));
 
         String idOrderparent = getIntent().getStringExtra("idorderparent");
-
-
-        System.out.println("111: "+getIntent().getStringExtra("amountorderparent"));
-        System.out.println("222: "+getIntent().getStringExtra("priceorderparent"));
-
-
         Long amountorderparent = Long.valueOf(getIntent().getStringExtra("amountorderparent"));
         Float priceorderparent = Float.valueOf(getIntent().getStringExtra("priceorderparent"));
         String address = getIntent().getStringExtra("address");
@@ -147,13 +141,20 @@ public class DetailOrder extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                System.out.println("111111");
+
+
+                mDialog = new ProgressDialog(DetailOrder.this);
+                mDialog.setCanceledOnTouchOutside(false);
+                mDialog.setCancelable(false);
+                mDialog.setMessage("Loading Data.....");
+                mDialog.show();
+
+
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()) {
 
                     Order orderFireBase = dataSnapshot.getValue(Order.class);
 
                     if(orderFireBase.getOrderparent_id().toString().equals(idOrderparent)){
-                        System.out.println("222222");
 
                         databaseReference.child("Foods").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -181,11 +182,14 @@ public class DetailOrder extends AppCompatActivity {
                         });
                     }
                 }
+
+                mDialog.cancel();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(DetailOrder.this, "Loading Data Failed", Toast.LENGTH_SHORT).show();
+                mDialog.cancel();
             }
         });
 

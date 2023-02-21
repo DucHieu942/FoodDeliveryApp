@@ -64,6 +64,7 @@
             app:layout_constraintVertical_bias="1">
 
             <LinearLayout
+                android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -129,7 +130,7 @@
                         android:layout_weight="1"
                         android:backgroundTint="@color/cardview_shadow_end_color"
                         android:hint="0"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:textAlignment="textEnd"
                         android:textColor="@color/black"
                         android:textSize="14sp"
@@ -139,40 +140,53 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <LinearLayout
-        android:layout_width="372dp"
-        android:layout_height="116dp"
+        android:layout_width="387dp"
+        android:layout_height="152dp"
+        android:layout_marginTop="308dp"
         android:orientation="horizontal"
+        android:paddingLeft="30dp"
         android:paddingTop="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
-        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="44dp">
+        tools:layout_editor_absoluteX="8dp">
 
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonCanCel"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/orange_background"
-            android:backgroundTint="@color/design_default_color_primary"
-            android:text="Cancel"
-            android:textColor="#FFFF" />
+            android:layout_weight="1">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/orange_background"
-            android:backgroundTint="@android:color/holo_orange_light"
-            android:text="Save"
-            android:textColor="#FFFF" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonCanCel"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/orange_background"
+                android:backgroundTint="@color/design_default_color_primary"
+                android:text="Cancel"
+                android:textColor="#FFFF"
+                app:layout_constraintEnd_toStartOf="@+id/buttonSave"
+                app:layout_constraintHorizontal_bias="0.391"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonSave"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/orange_background"
+                android:backgroundTint="@android:color/holo_orange_light"
+                android:text="Save"
+                android:textColor="#FFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="0dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 

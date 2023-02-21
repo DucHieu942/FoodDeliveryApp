@@ -1,5 +1,6 @@
 package com.example.fooddelivery.customerFoodPanel.myOrder;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.fooddelivery.Model.Food;
 import com.example.fooddelivery.Model.Order;
@@ -38,6 +40,7 @@ public class HistoryFragment extends Fragment {
     private List<Orderparent> test = new ArrayList<>();
     String foodName ="";
     OderParentAdapter.IListenerClickItem cancelOrder;
+    ProgressDialog mDialog = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,6 +74,15 @@ public class HistoryFragment extends Fragment {
         databaseReference.child("OrderParent").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+
+                mDialog = new ProgressDialog(getActivity());
+                mDialog.setCanceledOnTouchOutside(false);
+                mDialog.setCancelable(false);
+                mDialog.setMessage("Loading Data.....");
+                mDialog.show();
+
 
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     Orderparent orderParent = dataSnapshot.getValue(Orderparent.class);
@@ -127,12 +139,14 @@ public class HistoryFragment extends Fragment {
 
                 }
                 oderParentAdapter.notifyDataSetChanged();
+                mDialog.cancel();
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(getActivity(), "Loading Data Failed", Toast.LENGTH_SHORT).show();
+                mDialog.cancel();
             }
         });
     }

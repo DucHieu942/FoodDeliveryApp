@@ -1,6 +1,7 @@
 package com.example.fooddelivery.customerFoodPanel.myOrder;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,8 @@ public class OngoingFragment extends Fragment {
 //    private List<Orderparent> test = new ArrayList<>();
     String foodName ="";
     private Dialog dialog;
+
+    ProgressDialog mDialog = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,10 +85,14 @@ public class OngoingFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                mDialog = new ProgressDialog(getActivity());
+                mDialog.setCanceledOnTouchOutside(false);
+                mDialog.setCancelable(false);
+                mDialog.setMessage("Loading Data.....");
+                mDialog.show();
+
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     Orderparent orderParent = dataSnapshot.getValue(Orderparent.class);
-
-
                     if(!orderParent.getStatus().equals("complete")){
                         databaseReference.child("Order").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override

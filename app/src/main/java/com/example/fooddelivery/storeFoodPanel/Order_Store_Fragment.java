@@ -2,6 +2,7 @@ package com.example.fooddelivery.storeFoodPanel;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -47,6 +48,7 @@ public class Order_Store_Fragment extends Fragment {
     private List<Orderparent> orderparentList =new ArrayList<>();
     private Dialog dialog;
     ShapeableImageView logout;
+    ProgressDialog mDialog = null;
 
 
 
@@ -96,59 +98,59 @@ public class Order_Store_Fragment extends Fragment {
 
 
 
-    private void initDiagLogCancelOrder(Orderparent item){
-        dialog = new Dialog(getActivity());
-        dialog.setContentView(R.layout.dialog_confirm);
-        Window window = dialog.getWindow();
-        window.setLayout(800, 300);
-        Button buttonCf = dialog.findViewById(R.id.button_cf_order);
-        Button buttonCp = dialog.findViewById(R.id.button_cp_order);
-
-        buttonCf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                databaseReference.child("OrderParent").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        databaseReference.child("OrderParent").child(item.getId().toString()).child("status").setValue("confirmed");
-                        Toast.makeText(getActivity(),"Confirm Order",Toast.LENGTH_SHORT).show();
-                        orderparentList = new ArrayList<>();
-                        dialog.dismiss();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-
-
-        });
-
-        buttonCp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                databaseReference.child("OrderParent").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        databaseReference.child("OrderParent").child(item.getId().toString()).child("status").setValue("complete");
-                        Toast.makeText(getActivity(),"Complete Order",Toast.LENGTH_SHORT).show();
-                        orderparentList = new ArrayList<>();
-                        dialog.dismiss();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-        });
-
-    };
+//    private void initDiagLogCancelOrder(Orderparent item){
+//        dialog = new Dialog(getActivity());
+//        dialog.setContentView(R.layout.dialog_confirm);
+//        Window window = dialog.getWindow();
+//        window.setLayout(800, 300);
+//        Button buttonCf = dialog.findViewById(R.id.button_cf_order);
+//        Button buttonCp = dialog.findViewById(R.id.button_cp_order);
+//
+//        buttonCf.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                databaseReference.child("OrderParent").addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        databaseReference.child("OrderParent").child(item.getId().toString()).child("status").setValue("confirmed");
+//                        Toast.makeText(getActivity(),"Confirm Order",Toast.LENGTH_SHORT).show();
+//                        orderparentList = new ArrayList<>();
+//                        dialog.dismiss();
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+//            }
+//
+//
+//        });
+//
+//        buttonCp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//                databaseReference.child("OrderParent").addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        databaseReference.child("OrderParent").child(item.getId().toString()).child("status").setValue("complete");
+//                        Toast.makeText(getActivity(),"Complete Order",Toast.LENGTH_SHORT).show();
+//                        orderparentList = new ArrayList<>();
+//                        dialog.dismiss();
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+//            }
+//        });
+//
+//    };
 
 
 
@@ -157,10 +159,16 @@ public class Order_Store_Fragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+
+                mDialog = new ProgressDialog(getActivity());
+                mDialog.setCanceledOnTouchOutside(false);
+                mDialog.setCancelable(false);
+                mDialog.setMessage("Loading Data.....");
+                mDialog.show();
+
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+
                     Orderparent orderParent = dataSnapshot.getValue(Orderparent.class);
-
-
                     if(!orderParent.getStatus().equals("complete")){
                         databaseReference.child("Order").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -209,12 +217,15 @@ public class Order_Store_Fragment extends Fragment {
 
                 }
                 oderParentAdapter.notifyDataSetChanged();
+                mDialog.cancel();
+
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(getActivity(), "Loading Data Failed", Toast.LENGTH_SHORT).show();
+                mDialog.cancel();
             }
         });
     }

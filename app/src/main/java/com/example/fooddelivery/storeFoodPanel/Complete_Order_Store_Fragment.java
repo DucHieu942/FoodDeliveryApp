@@ -1,5 +1,6 @@
 package com.example.fooddelivery.storeFoodPanel;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.fooddelivery.Model.Food;
 import com.example.fooddelivery.Model.Order;
@@ -34,6 +36,7 @@ public class Complete_Order_Store_Fragment extends Fragment {
     private RecyclerView orderParentRec;
     private OderParentAdapter oderParentAdapter;
     private List<Orderparent> orderparentList =new ArrayList<>();
+    ProgressDialog mDialog = null;
 
 
     @Override
@@ -83,6 +86,14 @@ public class Complete_Order_Store_Fragment extends Fragment {
         databaseReference.child("OrderParent").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+
+                mDialog = new ProgressDialog(getActivity());
+                mDialog.setCanceledOnTouchOutside(false);
+                mDialog.setCancelable(false);
+                mDialog.setMessage("Loading Data.....");
+                mDialog.show();
 
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     Orderparent orderParent = dataSnapshot.getValue(Orderparent.class);
@@ -136,12 +147,14 @@ public class Complete_Order_Store_Fragment extends Fragment {
 
                 }
                 oderParentAdapter.notifyDataSetChanged();
+                mDialog.cancel();
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(getActivity(), "Loading Data Failed", Toast.LENGTH_SHORT).show();
+                mDialog.cancel();
             }
         });
     }

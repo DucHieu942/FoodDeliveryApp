@@ -200,7 +200,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/orange_background"
                 android:backgroundTint="@android:color/holo_orange_light"
-                android:text="Save"
+                android:text="Confirm"
                 android:textColor="#FFFF" />
         </LinearLayout>
 
