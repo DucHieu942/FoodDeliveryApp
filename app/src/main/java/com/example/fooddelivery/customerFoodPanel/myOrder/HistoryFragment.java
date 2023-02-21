@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.fooddelivery.CustomerFoodPanel_BottomNavigation;
 import com.example.fooddelivery.Model.Food;
 import com.example.fooddelivery.Model.Order;
 import com.example.fooddelivery.Model.Orderparent;
@@ -88,7 +89,8 @@ public class HistoryFragment extends Fragment {
                     Orderparent orderParent = dataSnapshot.getValue(Orderparent.class);
 
 
-                    if(orderParent.getStatus().equals("complete")){
+                    if(orderParent.getStatus().equals("complete")
+                            &&(orderParent.getCustomer_name().equals(CustomerFoodPanel_BottomNavigation.userNameLogin))){
                         databaseReference.child("Order").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
