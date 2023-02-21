@@ -1,5 +1,6 @@
 package com.example.fooddelivery.storeFoodPanel;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -48,6 +49,8 @@ public class Food_List_Store_Fragment extends Fragment {
     public static Food foodEdit = new Food();
     private OnButtonLogoutFoodListListener listener;
 
+    ProgressDialog mDialog = null;
+
 
 
     @Override
@@ -84,18 +87,12 @@ public class Food_List_Store_Fragment extends Fragment {
         editFood = new FoodAdapter.IAddFoodListener() {
             @Override
             public void onAddFood(Food food) {
-
-
-
-
-
-
                 foodEdit.setId(food.getId());
                 System.out.println("Mã: "+food.getId());
                 foodEdit.setName(food.getName());
                 foodEdit.setImgUrl(food.getImgUrl());
                 foodEdit.setPrice(food.getPrice());
-                Intent intent = new Intent(getActivity(), Edit_add_food.class);
+                Intent intent = new Intent(getActivity(), Edit_food.class);
                 startActivity(intent);
             }
         };
@@ -110,22 +107,31 @@ public class Food_List_Store_Fragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
+
+
+                mDialog = new ProgressDialog(getActivity());
+                mDialog.setCanceledOnTouchOutside(false);
+                mDialog.setCancelable(false);
+                mDialog.setMessage("Loading Data.....");
+                mDialog.show();
+
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
 
                     Food food = dataSnapshot.getValue(Food.class);
                     foodList.add(food);
                 }
                 foodAdapter.notifyDataSetChanged();
+                mDialog.cancel();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+                Toast.makeText(getActivity(), "Loading Data Failed", Toast.LENGTH_SHORT).show();
+                mDialog.cancel();
+
             }
         });
-
-
-
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -140,19 +146,13 @@ public class Food_List_Store_Fragment extends Fragment {
             }
         });
 
-
         addFoodMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                    Intent intent = new Intent(getActivity(), Edit_add_food.class);
+                    Intent intent = new Intent(getActivity(), Add_Food.class);
                     startActivity(intent);
             }
         });
-
-
-
 
 
         return v;

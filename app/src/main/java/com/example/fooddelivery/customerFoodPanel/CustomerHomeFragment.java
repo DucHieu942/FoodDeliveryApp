@@ -1,5 +1,6 @@
 package com.example.fooddelivery.customerFoodPanel;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +17,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.fooddelivery.MainLogin;
 import com.example.fooddelivery.Model.Food;
 import com.example.fooddelivery.Model.Order;
 import com.example.fooddelivery.Model.Orderparent;
 import com.example.fooddelivery.R;
 import com.example.fooddelivery.adapters.FoodAdapter;
+import com.example.fooddelivery.storeFoodPanel.Add_Food;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +46,7 @@ public class CustomerHomeFragment extends Fragment  {
     private SearchView searchView;
     private ImageView shoppingCart;
     private OnBackPressedListener onBackPressedListener;
+    ProgressDialog mDialog = null;
     String uuidOrder = "None";
     Long idOrder = 0L;
 
@@ -66,6 +70,8 @@ public class CustomerHomeFragment extends Fragment  {
 
         foodList = new ArrayList<>();
         FoodAdapter.IAddFoodListener addToCart;
+
+
 
 
         // Thêm món ăn vào giỏ hàng
@@ -92,16 +98,26 @@ public class CustomerHomeFragment extends Fragment  {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
+
+                mDialog = new ProgressDialog(getActivity());
+                mDialog.setCanceledOnTouchOutside(false);
+                mDialog.setCancelable(false);
+                mDialog.setMessage("Sign In Please Wait.....");
+                mDialog.show();
+
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
 
                     Food food = dataSnapshot.getValue(Food.class);
                     foodList.add(food);
                 }
                 foodAdapter.notifyDataSetChanged();
+                mDialog.cancel();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Load Data Failed", Toast.LENGTH_SHORT).show();
+                mDialog.cancel();
 
             }
         });
@@ -139,34 +155,6 @@ public class CustomerHomeFragment extends Fragment  {
 
         return v;
     }
-// send Data To Firebase
-//    private void sendDataToFireBase(Food food,String userNameLogin ) {
-//         Long idFood = food.getId();
-//         Float priceFood = food.getPrice();
-//        databaseReference.child("OrderParent").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if(uuidOrder.equals("None")) {
-//                    String status = snapshot.child(uuidOrder).child("status").getValue(String.class) ==null?"None"
-//                            :snapshot.child(uuidOrder).child("status").getValue(String.class);
-//                    if(!status.equals("In cart"))
-//                        uuidOrder = UUID.randomUUID().toString();
-//                }
-//                Orderparent orderparent = new Orderparent(uuidOrder,null,null,null,null,null,"In cart",null,null);
-//                databaseReference.child("OrderParent").child(uuidOrder).setValue(orderparent);
-//                Order order = new Order(idOrder,uuidOrder,idFood,null);
-//                databaseReference.child("Order").child(idOrder.toString()).setValue(order);
-//                databaseReference.child("Order").child(idOrder.toString()).child("price").setValue(priceFood.intValue());
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//    }
 
     private void filterList(String newText) {
         List<Food> filteredList = new ArrayList<>();
@@ -192,40 +180,16 @@ public class CustomerHomeFragment extends Fragment  {
         }
     }
 
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putIntegerArrayList("foodListCartId",(ArrayList<Integer>) foodListCartId);
-        outState.putString("UUID", uuidOrder);
-    }
+//    public void onSaveInstanceState(@NonNull Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putIntegerArrayList("foodListCartId",(ArrayList<Integer>) foodListCartId);
+//        outState.putString("UUID", uuidOrder);
+//    }
 
 
     public interface OnBackPressedListener {
         void onBackPressed();
     }
-
-
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        super.onAttach(context);
-//        try {
-//            onBackPressedListener = (OnBackPressedListener) getActivity();
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(getActivity().toString() + " must implement OnBackPressedListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        onBackPressedListener = null;
-//    }
-
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        onBackPressedListener = (OnBackPressedListener) getActivity();
-//    }
-
 
 }
 

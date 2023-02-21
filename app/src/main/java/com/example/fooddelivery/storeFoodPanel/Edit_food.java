@@ -4,10 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
-import android.net.Uri;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,11 +20,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import org.checkerframework.checker.units.qual.C;
+public class Edit_food extends AppCompatActivity {
 
-public class Edit_add_food extends AppCompatActivity {
-
-
+    ProgressDialog mDialog =null;
     EditText foodName,price;
     ShapeableImageView imageView;
     AppCompatButton btnCancel,btnSave;
@@ -72,6 +69,13 @@ public class Edit_add_food extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
+
+                                mDialog = new ProgressDialog(Edit_food.this);
+                                mDialog.setCanceledOnTouchOutside(false);
+                                mDialog.setCancelable(false);
+                                mDialog.setMessage("Updating Food.....");
+                                mDialog.show();
+
                                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
 
                                     Food foodFireBase = dataSnapshot.getValue(Food.class);
@@ -86,12 +90,14 @@ public class Edit_add_food extends AppCompatActivity {
                                     }
                                 }
 
-                                Toast.makeText(Edit_add_food.this,"Update Success",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Edit_food.this,"Update Success",Toast.LENGTH_SHORT).show();
+                                mDialog.cancel();
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(Edit_add_food.this, "Update Failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Edit_food.this, "Update Failed", Toast.LENGTH_SHORT).show();
+                                mDialog.cancel();
                             }
                         });
 
@@ -100,10 +106,10 @@ public class Edit_add_food extends AppCompatActivity {
                         finish();
                     }
                     else{
-                        Toast.makeText(Edit_add_food.this, "Please Enter Infor", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Edit_food.this, "Please Enter Infor", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(Edit_add_food.this, "Please Enter Float In Price", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Edit_food.this, "Please Enter Float In Price", Toast.LENGTH_SHORT).show();
                 }
 
 

@@ -13,6 +13,13 @@
         android:theme="@style/Theme.FoodDelivery"
         tools:targetApi="31">
         <activity
+            android:name=".storeFoodPanel.Add_Food"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".storeFoodPanel.DetailOrder"
             android:exported="false">
             <meta-data
@@ -20,7 +27,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".storeFoodPanel.Edit_add_food"
+            android:name=".storeFoodPanel.Edit_food"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

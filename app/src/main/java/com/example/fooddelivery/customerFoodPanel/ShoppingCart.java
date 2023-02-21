@@ -64,11 +64,6 @@ public class ShoppingCart extends AppCompatActivity implements CustomerHomeFragm
         totalView =(TextView) findViewById(R.id.textTotalPrice);
         editText = (TextView) findViewById(R.id.addressEdit);
         homePage =(ShapeableImageView) findViewById(R.id.imagelogo);
-
-//        UUID =getIntent().getStringExtra("UUID");
-//        userName= getIntent().getStringExtra("username");
-
-
         foodRec = findViewById(R.id.listfoodincart);
         foodRec.setHasFixedSize(true);
         foodRec.setLayoutManager(new LinearLayoutManager(this));
@@ -77,6 +72,8 @@ public class ShoppingCart extends AppCompatActivity implements CustomerHomeFragm
 
         initInforOrder();
 
+
+        //Khởi tạo adapter
         foodInCartAdapter = new FoodInCartAdapter(ShoppingCart.this,foodListCart,
                 new FoodInCartAdapter.IListenerIncrease(){
 
@@ -208,7 +205,7 @@ public class ShoppingCart extends AppCompatActivity implements CustomerHomeFragm
                    mDialog =new ProgressDialog(ShoppingCart.this);
                    mDialog.setCanceledOnTouchOutside(false);
                    mDialog.setCancelable(false);
-                   mDialog.setMessage("Sign In Please Wait.....");
+                   mDialog.setMessage("Saving.....");
                    mDialog.show();
 
                    onCreateOrderParent(orderparent);
@@ -259,9 +256,7 @@ public class ShoppingCart extends AppCompatActivity implements CustomerHomeFragm
 //        getSupportFragmentManager().beginTransaction()
 //                .replace(R.id.fragment_container_customer, customerHomeFragment, "CustomerHomeFragment")
 //                .commit();
-
         finish();
-
     }
 
 //Hàm tạo đơn hàng tổng trên FireBase
