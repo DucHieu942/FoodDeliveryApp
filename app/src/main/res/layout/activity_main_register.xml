@@ -94,7 +94,7 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/address"
+                            android:id="@+id/fullname"
                             android:layout_width="268dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
@@ -134,7 +134,7 @@
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/background_shape"
                             android:drawablePadding="5dp"
-                            android:hint=" Email address"
+                            android:hint=" Email"
                             android:paddingStart="16dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
@@ -226,7 +226,7 @@
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/fullName"
+                            android:id="@+id/cfpass"
                             android:layout_width="268dp"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
@@ -239,6 +239,43 @@
                             android:paddingStart="16dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/background_shape"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/icon_address" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/address"
+                            android:layout_width="268dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/background_shape"
+                            android:drawablePadding="5dp"
+                            android:hint="Address"
+                            android:paddingStart="16dp"
+                            tools:ignore="DuplicateIds" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+
+
+
+
 
             </LinearLayout>
         </ScrollView>
