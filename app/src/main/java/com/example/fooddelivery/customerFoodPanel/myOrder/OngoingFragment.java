@@ -164,6 +164,7 @@ public class OngoingFragment extends Fragment {
 
                 }
                 oderParentAdapter.notifyDataSetChanged();
+                mDialog.cancel();
 
             }
 
